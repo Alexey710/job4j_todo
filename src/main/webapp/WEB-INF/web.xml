@@ -1,0 +1,35 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+
+  <servlet>
+    <servlet-name>TaskServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.servlets.TaskServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TaskServlet</servlet-name>
+    <url-pattern>/task</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DoTaskServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.servlets.DoTaskServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DoTaskServlet</servlet-name>
+    <url-pattern>/do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ShowAllTasksServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.servlets.ShowAllTasksServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowAllTasksServlet</servlet-name>
+    <url-pattern>/show</url-pattern>
+  </servlet-mapping>
+
+</web-app>
