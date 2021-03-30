@@ -46,7 +46,7 @@
                 console.log(data);
             },
             error: function(errMsg) {
-                alert(errMsg);
+                console.log(errMsg);
             }
         });
     }
@@ -78,7 +78,7 @@
                 $('#table > tbody').empty().append(table);
             },
             error: function(errMsg) {
-                alert(errMsg);
+                console.log(errMsg);
             }
         });
     }
@@ -110,7 +110,7 @@
                 $('#table > tbody').empty().append(table);
             },
             error: function(errMsg) {
-                alert(errMsg);
+                console.log(errMsg);
             }
         });
     }
