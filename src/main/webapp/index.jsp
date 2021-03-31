@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 </head>
-<body onload="return showAll();">
+<body onload="return doTask('00');">
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -30,6 +30,27 @@
             return false;
         }
         addTask();
+    }
+
+    function checkCheckbox() {
+        console.log("start checkCheckbox");
+        const checkbox = document.querySelector('#checkbox2');
+        if ( checkbox.checked ) {
+            console.log("checkbox2 - checked");
+            showAll();
+        } else {
+            console.log("checkbox2 - not checked");
+            doTask("00");
+        }
+        /*$('#checkbox2').on('click', function () {
+            if ( $(this).is(':checked') ) {
+                console.log("checkbox2 - checked");
+                showAll();
+            } else {
+                console.log("checkbox2 - not checked");
+                doTask("00");
+            }
+        })*/
     }
 
     function addTask() {
@@ -84,7 +105,7 @@
     }
 
     function showAll() {
-        console.log("start doTask");
+        console.log("start showAll");
         let options = {
             year: 'numeric',
             month: 'long',
@@ -104,8 +125,11 @@
                 console.log(data);
                 let table;
                 for(let i=0; i<data.length; i++) {
-                    table += '<tr><td>' + '<input onclick="return doTask(value);" type="checkbox" value=' + data[i].id + '/> ' + '</td><td>'
-                        + new Date(data[i].created).toLocaleString("ru", options) + '</td><td>' + data[i].description + '</td></tr>';
+                    let checkbox = '<input onclick="return doTask(value);" type="checkbox" value=' + data[i].id + '/> ';
+                    let color = ' style=\"background-color:#98FB98;\"';
+                    if(data[i].done) {color = ' style=\"background-color:#FA8072;\"'; checkbox = 'выполнено';}
+                    table += '<tr><td>' + checkbox + '</td><td'+color+'>'
+                        + new Date(data[i].created).toLocaleString("ru", options) + '</td><td'+color+'>' + data[i].description + '</td></tr>';
                 }
                 $('#table > tbody').empty().append(table);
             },
@@ -129,7 +153,7 @@
     <h2>Задачи:</h2><br>
     <table class="table" id="table">
         <thead>
-        <input type="checkbox" id="checkbox2" onclick="return showAll();"> показать все</input>
+        <input type="checkbox" id="checkbox2" onclick="return checkCheckbox();"> показать все</input>
         <tr>
             <th><i class="fa fa-check" style="color:green"> - выполнено</i></th>
             <th>Дата начала</th>

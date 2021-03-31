@@ -8,8 +8,9 @@
 Интерфейс приложения:
 
 ![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/main_menu.JPG)
-
+![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/main_menu2.JPG)
 ![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/validation.JPG)
+
 
 
 [![Build Status](https://travis-ci.org/Alexey710/job4j_todo.svg?branch=master)](https://travis-ci.org/Alexey710/job4j_todo)

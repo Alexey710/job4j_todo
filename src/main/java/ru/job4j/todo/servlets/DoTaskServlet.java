@@ -30,10 +30,13 @@ public class DoTaskServlet extends HttpServlet {
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
         }
+        //
+        //
         HbmTODO hbmTODO = new HbmTODO();
-        Task found = hbmTODO.findById(stringTrimmed);
-        hbmTODO.done(found);
-
+        if (!"0".equals(stringTrimmed)) {
+            Task found = hbmTODO.findById(stringTrimmed);
+            hbmTODO.done(found);
+        }
         List<Task> list = hbmTODO.findByUndone();
 
         ObjectMapper mapper = new ObjectMapper();
