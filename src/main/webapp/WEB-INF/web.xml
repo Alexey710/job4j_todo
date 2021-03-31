@@ -5,6 +5,15 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
+  <filter>
+    <filter-name>AuthFilter</filter-name>
+    <filter-class>ru.job4j.todo.filter.AuthFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AuthFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+
   <servlet>
     <servlet-name>TaskServlet</servlet-name>
     <servlet-class>ru.job4j.todo.servlets.TaskServlet</servlet-class>
@@ -29,7 +38,25 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ShowAllTasksServlet</servlet-name>
-    <url-pattern>/show</url-pattern>
+    <url-pattern>/show.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AuthServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.servlets.AuthServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthServlet</servlet-name>
+    <url-pattern>/auth.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>RegServlet</servlet-name>
+    <servlet-class>ru.job4j.todo.servlets.RegServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegServlet</servlet-name>
+    <url-pattern>/reg.do</url-pattern>
   </servlet-mapping>
 
 </web-app>

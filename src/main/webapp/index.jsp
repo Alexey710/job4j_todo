@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
           integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <title>Приложение TODO</title>
@@ -117,7 +118,7 @@
         };
         $.ajax({
             type: "POST",
-            url: 'http://localhost:8080/todo/show',
+            url: 'http://localhost:8080/todo/show.do',
             data: JSON.stringify("request"),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -140,6 +141,14 @@
     }
 
 </script>
+<div class="container">
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
+            </li>
+        </ul>
+    </div>
 <div class="container-fluid">
     <h2 align="center"><span>Приложение <span style="color: green;">TO</span><span style="color: red;">DO</span></h2>
 </div>

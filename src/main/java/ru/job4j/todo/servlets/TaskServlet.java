@@ -1,6 +1,7 @@
 package ru.job4j.todo.servlets;
 
 import ru.job4j.todo.model.Task;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.store.HbmTODO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +33,8 @@ public class TaskServlet extends HttpServlet {
         if (decodedJson.contains("=")) {
             String description = decodedJson.split("=")[1];
             Timestamp time = new Timestamp(1000 * (System.currentTimeMillis() / 1000));
-            Task task = new Task(time, description, false);
+            Task task = new Task(
+                    time, description, false, User.of("user1", "email", "password"));
             hbmTODO.add(task);
         }
         List<Task> list = hbmTODO.findByUndone();

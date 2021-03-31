@@ -14,13 +14,18 @@ public class Task {
     private String description;
     private boolean done;
 
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Task() {
     }
 
-    public Task(Timestamp created, String description, boolean done) {
+    public Task(Timestamp created, String description, boolean done, User user) {
         this.created = created;
         this.description = description;
         this.done = done;
+        this.user = user;
     }
 
     public int getId() {
@@ -53,6 +58,14 @@ public class Task {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
