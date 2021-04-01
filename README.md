@@ -1,15 +1,18 @@
 Репозиторий приложение "TODO список"
 
-"TODO" - это приложение для добавления и удаления задач в списоке задач. 
-Просмотр выполненых/невыполненых задач.
+"TODO список" - это приложение для добавления/удаления и отслеживания задач в списке. 
+Можно просматривать задачи в двух режимах - невыполненых задач или все задачи.
+Вход в приложение по уникальному логину и паролю. Пользователь должен пройти регистрацию.
 
 В проекте использовались: Hibernate, Postgres, Tomcat, Java14, AJAX, JSON, JSTL, HTML.
 
 Интерфейс приложения:
 
+![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/auth.JPG)
 ![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/main_menu.JPG)
 ![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/main_menu2.JPG)
-![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/validation.JPG)
+![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/reg.JPG)
+![alt text](https://github.com/Alexey710/job4j_todo/blob/master/images/validation.JPG)
 
 
 
