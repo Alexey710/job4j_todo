@@ -18,10 +18,11 @@ public class AuthServlet extends HttpServlet {
         String password = req.getParameter("password");
         HbmTODO hbmTODO = new HbmTODO();
         User user = hbmTODO.findByCredential(email, password);
+        
         if (user != null) {
             HttpSession sc = req.getSession();
             sc.setAttribute("user", user);
-            resp.sendRedirect(req.getContextPath() + "/index.jsp");
+            resp.sendRedirect(req.getContextPath()/* + "/index.jsp" + "/show.do" + "/index.jsp"*/);
         } else {
             req.setAttribute("error", "Не верный email или пароль");
             req.getRequestDispatcher("login.jsp").forward(req, resp);

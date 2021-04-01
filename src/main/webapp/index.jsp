@@ -16,7 +16,73 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 </head>
+
 <body onload="return doTask('00');">
+    <div class="container pt-3">
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="card" style="width: 100%">
+          
+
+            <div class="card-body">
+                <div class="container-fluid">
+    <h2 align="center"><span><span style="color: green;">TO</span><span style="color: red;">DO</span> список</h2>
+</div>
+<div class="container">
+    <form action="<%=request.getContextPath()%>/task.do" method="post">
+        <label for="description">Новая задача:</label><br>
+        <textarea title="Введите описание задачи." id="description" name="description" rows="4" cols="50"></textarea>
+        <br><br>
+        <button type="submit" class="btn btn-default" onclick="return validate();">Добавить</button>
+    </form><br>
+    <h2>Задачи:</h2><br>
+    <table class="table" id="table">
+        <thead>
+        <input type="checkbox" id="checkbox2" onclick="return checkCheckbox();"> показать все</input>
+        <tr>
+            <th><i class="fa fa-check" style="color:green"> - выполнено</i></th>
+            <th>Дата начала</th>
+            <th>Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${tasks}" var="task">
+            <tr>
+                <td>
+                    <input id="checkbox1" value=<c:out value="${task.id}"/> type="checkbox" onclick="return doTask(value);">
+                        <c:out value="${task.id}"/></input>
+                </td>
+                <td>
+                    <c:out value="${task.created}"/>
+                </td>
+                <td>
+                    <c:out value="${task.description}"/>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <br>
+</div> 
+            </div>
+        </div>
+    </div>
+</div>
+    
+  
+    <%
+        if (request.getSession().getAttribute("user") == null) {
+                response.sendRedirect(request.getContextPath() + "/login.jsp");
+    }
+    %>
+ 
+    
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -25,6 +91,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 
 <script>
+    
     function validate() {
         if ($('#description').val() == "") {
             alert($('#description').attr('title'));
@@ -43,22 +110,13 @@
             console.log("checkbox2 - not checked");
             doTask("00");
         }
-        /*$('#checkbox2').on('click', function () {
-            if ( $(this).is(':checked') ) {
-                console.log("checkbox2 - checked");
-                showAll();
-            } else {
-                console.log("checkbox2 - not checked");
-                doTask("00");
-            }
-        })*/
     }
 
     function addTask() {
         let query = JSON.stringify($('#description').val());
         $.ajax({
             type: "POST",
-            url: 'http://localhost:8080/todo/task',
+            url: 'http://localhost:8080/todo/task.do',
             data: query,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -86,7 +144,7 @@
         };
         $.ajax({
             type: "POST",
-            url: 'http://localhost:8080/todo/do',
+            url: 'http://localhost:8080/todo/do.do',
             data: JSON.stringify(id),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -106,6 +164,7 @@
     }
 
     function showAll() {
+  
         console.log("start showAll");
         let options = {
             year: 'numeric',
@@ -141,53 +200,7 @@
     }
 
 </script>
-<div class="container">
-    <div class="row">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
-            </li>
-        </ul>
-    </div>
-<div class="container-fluid">
-    <h2 align="center"><span>Приложение <span style="color: green;">TO</span><span style="color: red;">DO</span></h2>
-</div>
-<div class="container">
-    <form action="<%=request.getContextPath()%>/task" method="post">
-        <label for="description">Новая задача:</label><br>
-        <textarea title="Введите описание задачи." id="description" name="description" rows="4" cols="50"></textarea>
-        <br><br>
-        <button type="submit" class="btn btn-default" onclick="return validate();">Добавить</button>
-    </form><br>
-    <h2>Задачи:</h2><br>
-    <table class="table" id="table">
-        <thead>
-        <input type="checkbox" id="checkbox2" onclick="return checkCheckbox();"> показать все</input>
-        <tr>
-            <th><i class="fa fa-check" style="color:green"> - выполнено</i></th>
-            <th>Дата начала</th>
-            <th>Описание</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${tasks}" var="task">
-            <tr>
-                <td>
-                    <input id="checkbox1" value=<c:out value="${task.id}"/> type="checkbox" onclick="return doTask(value);">
-                        <c:out value="${task.id}"/></input>
-                </td>
-                <td>
-                    <c:out value="${task.created}"/>
-                </td>
-                <td>
-                    <c:out value="${task.description}"/>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-    <br>
-</div>
+
 
 </body>
 </html>

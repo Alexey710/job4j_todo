@@ -5,7 +5,7 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -33,9 +33,17 @@
     </script>
 
     <title>авторизация TODO</title>
+    <style type="text/css">
+   #main_container {
+    align-self: center;	/* Абсолютное позиционирование */
+    width: 500px; /* Ширина слоя в пикселах */
+    height: 500px; /* Высота слоя в пикселах */
+   }
+    </style>
 </head>
 <body>
-<div class="container pt-3">
+<div id="main_container" class="container pt-3">
+    <h2 align="center"><span><span style="color: green;">TO</span><span style="color: red;">DO</span> список</h2>
 
     <div class="row">
         <div class="card" style="width: 100%">

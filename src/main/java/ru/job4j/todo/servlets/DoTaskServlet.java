@@ -11,6 +11,7 @@ import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import ru.job4j.todo.model.User;
 
 public class DoTaskServlet extends HttpServlet {
     @Override
@@ -30,18 +31,22 @@ public class DoTaskServlet extends HttpServlet {
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
         }
-        //
-        //
+        
+       
+        
         HbmTODO hbmTODO = new HbmTODO();
         if (!"0".equals(stringTrimmed)) {
             Task found = hbmTODO.findById(stringTrimmed);
             hbmTODO.done(found);
         }
-        List<Task> list = hbmTODO.findByUndone();
+        
+        User user = (User) req.getSession().getAttribute("user");
+                
+        List<Task> list = hbmTODO.findByUndone(user);
 
         ObjectMapper mapper = new ObjectMapper();
         String response = mapper.writeValueAsString(list);
-        System.out.println(response);
+       
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("json");
         resp.getWriter().write(response);

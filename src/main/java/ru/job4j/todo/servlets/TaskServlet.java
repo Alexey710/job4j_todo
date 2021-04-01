@@ -29,15 +29,19 @@ public class TaskServlet extends HttpServlet {
             ex.printStackTrace();
         }
         System.out.println(decodedJson.contains("="));
+        
+        User user = (User) req.getSession().getAttribute("user");
+        
         HbmTODO hbmTODO = new HbmTODO();
         if (decodedJson.contains("=")) {
             String description = decodedJson.split("=")[1];
             Timestamp time = new Timestamp(1000 * (System.currentTimeMillis() / 1000));
             Task task = new Task(
-                    time, description, false, User.of("user1", "email", "password"));
+                    time, description, false, user);
             hbmTODO.add(task);
         }
-        List<Task> list = hbmTODO.findByUndone();
+        
+        List<Task> list = hbmTODO.findByUndone(user);
         System.out.println(list);
         req.setAttribute("tasks", list);
         req.getRequestDispatcher("index.jsp").forward(req, resp);
