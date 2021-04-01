@@ -7,9 +7,11 @@
 
 Интерфейс приложения:
 
+![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/auth.JPG)
 ![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/main_menu.JPG)
 ![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/main_menu2.JPG)
-![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/validation.JPG)
+![alt text](https://raw.githubusercontent.com/Alexey710/job4j_todo/master/images/reg.JPG)
+![alt text](https://github.com/Alexey710/job4j_todo/blob/master/images/validation.JPG)
 
 
 
