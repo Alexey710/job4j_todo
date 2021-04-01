@@ -60,12 +60,12 @@ public class HbmTODO implements Store, AutoCloseable {
     }
 
     @Override
-    public List<Task> findAll() {
+    public List<Task> findAll(User user) {
         return this.tx(
                 session -> {
                     final Query query = session.createQuery(
                             "from ru.job4j.todo.model.Task where " + "user_id" + "= :value");
-                    query.setParameter("value", 1);
+                    query.setParameter("value", user.getId());
                     return query.list();
 
                 });
@@ -79,12 +79,14 @@ public class HbmTODO implements Store, AutoCloseable {
     }*/
 
     @Override
-    public List<Task> findByUndone() {
+    public List<Task> findByUndone(User user) {
         return this.tx(
                 session -> {
                     final Query query = session.createQuery(
-                            "from ru.job4j.todo.model.Task where " + "done" + "= :value");
-                    query.setParameter("value", false);
+                            "from ru.job4j.todo.model.Task where "
+                                    + "done" + "= :value1" + " and " + "user_id" + "= :value2" );
+                    query.setParameter("value1", false);
+                    query.setParameter("value2", user.getId());
                     return query.list();
                 });
     }
@@ -111,12 +113,12 @@ public class HbmTODO implements Store, AutoCloseable {
                 session -> {
                     //Integer id = (Integer) Integer.parseInt(key);
                     Query queryObject = session.createQuery(
-                            "from ru.job4j.todo.model.Task where "
+                            "from ru.job4j.todo.model.User where "
                                     + "email" + "= :value1" + " and " + "password" + "= :value2");
                     queryObject.setParameter("value1", email);
                     queryObject.setParameter("value2", password);
                     List<User> list = queryObject.list();
-                    return list.get(0);
+                     return list.isEmpty() ? null : list.get(0);                  
                 });
     }
 

@@ -8,9 +8,9 @@ import java.util.List;
 public interface Store extends AutoCloseable {
     Task add(Task item);
 
-    List<Task> findAll();
+    List<Task> findAll(User user);
 
-    List<Task> findByUndone();
+    List<Task> findByUndone(User user);
 
     Task findById(String key);
 
