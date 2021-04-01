@@ -20,7 +20,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>TaskServlet</servlet-name>
-    <url-pattern>/task</url-pattern>
+    <url-pattern>/task.do</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -29,7 +29,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>DoTaskServlet</servlet-name>
-    <url-pattern>/do</url-pattern>
+    <url-pattern>/do.do</url-pattern>
   </servlet-mapping>
 
   <servlet>
