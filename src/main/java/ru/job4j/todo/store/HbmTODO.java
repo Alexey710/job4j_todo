@@ -7,6 +7,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
+import ru.job4j.todo.model.Category;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.model.User;
 
@@ -33,6 +34,38 @@ public class HbmTODO implements Store, AutoCloseable {
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public List<Category> findAllCategory() {
+        return this.tx(
+                session -> {
+                    final Query query = session.createQuery("select c from Category c", Category.class);
+                    return query.list();
+                });
+    }
+    
+    @Override
+    public Category findCategoryById(String key) {
+        return this.tx(
+                session -> {
+                    Integer id = (Integer) Integer.parseInt(key);
+                    Query queryObject = session.createQuery(
+                            "from ru.job4j.todo.model.Category where " + "id" + "= :value");
+                    queryObject.setParameter("value", id);
+                    List<Category> list = queryObject.list();
+                    return list.get(0);
+                });
+    }
+    
+    @Override
+    public Category add(Category category) {
+        return this.tx(
+                session -> {
+                    session.save(category);
+                    return category;
+                }
+        );
     }
 
     @Override
@@ -71,13 +104,6 @@ public class HbmTODO implements Store, AutoCloseable {
                 });
     }
 
-    /*@Override
-    public List<Task> findAll() {
-        return this.tx(
-                session -> session.createQuery("from ru.job4j.todo.model.Task").list()
-        );
-    }*/
-
     @Override
     public List<Task> findByUndone(User user) {
         return this.tx(
@@ -90,8 +116,6 @@ public class HbmTODO implements Store, AutoCloseable {
                     return query.list();
                 });
     }
-
-
 
     @Override
     public boolean done(Task task) {
@@ -138,5 +162,17 @@ public class HbmTODO implements Store, AutoCloseable {
     @Override
     public void close() throws Exception {
         StandardServiceRegistryBuilder.destroy(registry);
+    }
+
+    public static void main(String[] args) {
+        /*HbmTODO hbmTODO = new HbmTODO();
+        List<Category> list = hbmTODO.findAllCategory();
+        
+        if (list.isEmpty()) {
+            hbmTODO.add(Category.of("срочные"));
+            hbmTODO.add(Category.of("несрочные"));
+        }
+        
+        System.out.print("List<Category> = " + list);*/
     }
 }

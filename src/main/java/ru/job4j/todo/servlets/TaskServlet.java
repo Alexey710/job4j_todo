@@ -11,7 +11,9 @@ import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import ru.job4j.todo.model.Category;
 
 public class TaskServlet extends HttpServlet {
 
@@ -20,24 +22,32 @@ public class TaskServlet extends HttpServlet {
             throws ServletException, IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
         String encodedJson = br.readLine();
-        System.out.println(encodedJson);
+        System.out.println("TaskServlet => " + encodedJson);
         String decodedJson = null;
         try {
             decodedJson = URLDecoder.decode(encodedJson, StandardCharsets.UTF_8.name());
-            System.out.println(decodedJson);
+            System.out.println("TaskServlet => " + decodedJson);
+         
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
         }
-        System.out.println(decodedJson.contains("="));
         
         User user = (User) req.getSession().getAttribute("user");
         
         HbmTODO hbmTODO = new HbmTODO();
         if (decodedJson.contains("=")) {
-            String description = decodedJson.split("=")[1];
+            String description = decodedJson.split("=")[2];
             Timestamp time = new Timestamp(1000 * (System.currentTimeMillis() / 1000));
             Task task = new Task(
                     time, description, false, user);
+            
+            String id = decodedJson.split("=")[1].split("&")[0];
+            Category category = hbmTODO.findCategoryById(id);
+            System.out.println(category);
+            List<Category> listCategory = new ArrayList<>();
+            listCategory.add(category);
+            task.setCategories(listCategory);
+            
             hbmTODO.add(task);
         }
         

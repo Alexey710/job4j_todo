@@ -13,3 +13,9 @@ create table users (
     password TEXT,
     CONSTRAINT email_unique UNIQUE (email)
 );
+
+create table categories (
+    id SERIAL PRIMARY KEY,
+    name varchar(2000)
+);
+insert into categories (name) values ('срочные'), ('несрочные');

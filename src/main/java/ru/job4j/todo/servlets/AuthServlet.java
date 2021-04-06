@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
+import ru.job4j.todo.model.Category;
 
 public class AuthServlet extends HttpServlet {
     @Override
@@ -18,10 +20,23 @@ public class AuthServlet extends HttpServlet {
         String password = req.getParameter("password");
         HbmTODO hbmTODO = new HbmTODO();
         User user = hbmTODO.findByCredential(email, password);
+        List<Category> list = hbmTODO.findAllCategory();
+        
+        
+        if (list.isEmpty()) {
+            hbmTODO.add(Category.of("срочная"));
+            hbmTODO.add(Category.of("несрочная"));
+            list = hbmTODO.findAllCategory();
+        }
+        System.out.println("List<Category> = " + list);
+        
         
         if (user != null) {
             HttpSession sc = req.getSession();
             sc.setAttribute("user", user);
+   
+            sc.setAttribute("allCategories", list);
+            
             resp.sendRedirect(req.getContextPath());
         } else {
             req.setAttribute("error", "Не верный email или пароль");

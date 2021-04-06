@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="ru.job4j.todo.model.Category" %>
+<%@ page import="ru.job4j.todo.store.HbmTODO" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,6 +18,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+    <style type="text/css">
+   #cIds {
+    width: 375px; 
+    height: 50px;
+   }
+    </style>
 </head>
 
 <body onload="return doTask('00');">
@@ -35,10 +44,21 @@
     <h2 align="center"><span><span style="color: green;">TO</span><span style="color: red;">DO</span> список</h2>
 </div>
 <div class="container">
+ 
     <form action="<%=request.getContextPath()%>/task.do" method="post">
-        <label for="description">Новая задача:</label><br>
+        
+        <label for="cIds" id="label_cIds">Приориет задачи:</label><br>
+             <select title="Выберити приоритет задачи: cрочная / несрочная." class="form-control" name="cIds" id="cIds" multiple>
+                 <c:forEach items="${allCategories}" var="category">
+                     <option value='<c:out value="${category.id}"/>'><c:out value="${category.name}"/></option>
+                 </c:forEach>             
+             </select>
+        <br>
+       
+        <label for="description">Описание задачи:</label><br>
         <textarea title="Введите описание задачи." id="description" name="description" rows="4" cols="50"></textarea>
-        <br><br>
+        <br>
+
         <button type="submit" class="btn btn-default" onclick="return validate();">Добавить</button>
     </form><br>
     <h2>Задачи:</h2><br>
@@ -97,6 +117,10 @@
             alert($('#description').attr('title'));
             return false;
         }
+        if ($('#cIds').val() == "") {
+            alert($('#cIds').attr('title'));
+            return false;
+        }
         addTask();
     }
 
@@ -152,7 +176,8 @@
                 console.log(data);
                 let table;
                 for(let i=0; i<data.length; i++) {
-                    table += '<tr><td>' + '<input onclick="return doTask(value);" type="checkbox" value=' + data[i].id + '/> ' + '</td><td>'
+                    let category = data[i].categories[0].name;
+                    table += '<tr><td>' + '<input onclick="return doTask(value);" type="checkbox" value=' + data[i].id + '/> ' + category + '</td><td>'
                         + new Date(data[i].created).toLocaleString("ru", options) + '</td><td>' + data[i].description + '</td></tr>';
                 }
                 $('#table > tbody').empty().append(table);

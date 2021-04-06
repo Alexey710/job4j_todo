@@ -1,5 +1,6 @@
 package ru.job4j.todo.store;
 
+import ru.job4j.todo.model.Category;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.model.User;
 
@@ -19,4 +20,10 @@ public interface Store extends AutoCloseable {
     User findByCredential(String email, String password);
 
     User addUser(User user);
+
+    List<Category> findAllCategory();
+    
+    Category add(Category category);
+    
+    Category findCategoryById(String key);
 }

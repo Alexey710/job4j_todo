@@ -26,14 +26,12 @@ public class DoTaskServlet extends HttpServlet {
             String decodedJson = null;
             decodedJson = URLDecoder.decode(encodedJson, StandardCharsets.UTF_8.name());
             System.out.println(decodedJson);
-            stringTrimmed = encodedJson.substring(1, encodedJson.length() - 2); //было (1, encodedJson.length() - 1)
+            stringTrimmed = encodedJson.substring(1, encodedJson.length() - 2);
             System.out.println(stringTrimmed);
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
         }
-        
-       
-        
+
         HbmTODO hbmTODO = new HbmTODO();
         if (!"0".equals(stringTrimmed)) {
             Task found = hbmTODO.findById(stringTrimmed);
