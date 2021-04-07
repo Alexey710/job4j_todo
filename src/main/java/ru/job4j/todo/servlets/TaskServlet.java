@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import ru.job4j.todo.model.Category;
 
@@ -37,9 +38,8 @@ public class TaskServlet extends HttpServlet {
         HbmTODO hbmTODO = new HbmTODO();
         if (decodedJson.contains("=")) {
             String description = decodedJson.split("=")[2];
-            Timestamp time = new Timestamp(1000 * (System.currentTimeMillis() / 1000));
-            Task task = new Task(
-                    time, description, false, user);
+           
+            Task task = Task.of(description, user);
             
             String id = decodedJson.split("=")[1].split("&")[0];
             Category category = hbmTODO.findCategoryById(id);

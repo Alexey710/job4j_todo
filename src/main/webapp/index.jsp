@@ -18,6 +18,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+          integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <style type="text/css">
    #cIds {
     width: 375px; 
@@ -210,10 +212,11 @@
                 console.log(data);
                 let table;
                 for(let i=0; i<data.length; i++) {
+                    let category = data[i].categories[0].name;
                     let checkbox = '<input onclick="return doTask(value);" type="checkbox" value=' + data[i].id + '/> ';
                     let color = ' style=\"background-color:#98FB98;\"';
-                    if(data[i].done) {color = ' style=\"background-color:#FA8072;\"'; checkbox = 'выполнено';}
-                    table += '<tr><td>' + checkbox + '</td><td'+color+'>'
+                    if(data[i].done) {color = ' style=\"background-color:#FA8072;\"'; checkbox = '<span style="color: red;">выполнено</span>'; category ='';}
+                    table += '<tr><td>' + checkbox + category +'</td><td'+color+'>'
                         + new Date(data[i].created).toLocaleString("ru", options) + '</td><td'+color+'>' + data[i].description + '</td></tr>';
                 }
                 $('#table > tbody').empty().append(table);
